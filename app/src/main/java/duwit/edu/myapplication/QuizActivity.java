@@ -13,6 +13,7 @@ public class QuizActivity extends AppCompatActivity {
     Button btnA, btnB, btnC, btnD;
     int dapAnDung;
     int diem = 0;
+    int soCauDaLam = 0;
     String loaiPhepToan;
 
     @Override
@@ -41,7 +42,13 @@ public class QuizActivity extends AppCompatActivity {
                     Toast.makeText(QuizActivity.this, "Sai rồi! Đáp án là: " + dapAnDung, Toast.LENGTH_SHORT).show();
                 }
                 txtDiem.setText("Điểm: " + diem);
-                taoCauHoiMoi();
+                soCauDaLam++;
+                // Kiểm tra nếu đã làm đủ 10 câu thì hiện bảng tổng kết, ngược lại thì chơi tiếp
+                if (soCauDaLam >= 10) {
+                    hienBangTongKet();
+                } else {
+                    taoCauHoiMoi();
+                }
             }
         };
 
@@ -109,7 +116,40 @@ public class QuizActivity extends AppCompatActivity {
                 // Đã tìm được số độc nhất, gán vào nút và lưu vào danh sách
                 buttons[i].setText(String.valueOf(nhieu));
                 danhSachDapAn[i] = nhieu;
+
+
             }
         }
+    }
+    void hienBangTongKet() {
+        // Tạo một hộp thoại thông báo
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(QuizActivity.this);
+        builder.setTitle("HOÀN THÀNH THỬ THÁCH");
+        builder.setMessage("Chúc mừng bé đã hoàn thành 10 câu hỏi!\n\nTổng số điểm đạt được: " + diem + " điểm");
+        builder.setCancelable(false); // Ép người dùng phải bấm nút, không cho bấm ra ngoài màn hình để tắt
+
+        // Nút Chơi lại
+        builder.setPositiveButton("Chơi lại", new android.content.DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(android.content.DialogInterface dialog, int which) {
+                diem = 0;
+                soCauDaLam = 0;
+                txtDiem.setText("Điểm: 0");
+                taoCauHoiMoi();
+                dialog.dismiss();
+            }
+        });
+
+        // Nút Về Menu
+        builder.setNegativeButton("Về Menu", new android.content.DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(android.content.DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        // Hiển thị bảng lên màn hình
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
