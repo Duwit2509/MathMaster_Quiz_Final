@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Random;
 
 public class QuizActivity extends AppCompatActivity {
+    com.google.firebase.firestore.FirebaseFirestore db;
+    com.google.firebase.auth.FirebaseAuth mAuth;
     TextView txtCauHoi, txtDiem, txtSoCau;
     Button btnA, btnB, btnC, btnD;
     int dapAnDung;
@@ -28,6 +30,9 @@ public class QuizActivity extends AppCompatActivity {
         btnC = findViewById(R.id.btnC); btnD = findViewById(R.id.btnD);
 
         loaiPhepToan = getIntent().getStringExtra("PHEP_TOAN");
+
+        db = com.google.firebase.firestore.FirebaseFirestore.getInstance();
+        mAuth = com.google.firebase.auth.FirebaseAuth.getInstance();
 
         taoCauHoiMoi();
 
@@ -55,6 +60,7 @@ public class QuizActivity extends AppCompatActivity {
 
         btnA.setOnClickListener(answerClick); btnB.setOnClickListener(answerClick);
         btnC.setOnClickListener(answerClick); btnD.setOnClickListener(answerClick);
+
     }
 
     void taoCauHoiMoi() {
@@ -65,7 +71,7 @@ public class QuizActivity extends AppCompatActivity {
 
         if (loaiPhepToan.equals("+")) dapAnDung = so1 + so2;
         else if (loaiPhepToan.equals("-")) {
-            if (so1 < so2) { int tmp = so1; so1 = so2; so2 = tmp; } // Đảm bảo không ra số âm
+            if (so1 < so2) { int tmp = so1; so1 = so2; so2 = tmp; }
             dapAnDung = so1 - so2;
         } else if (loaiPhepToan.equals("x")) dapAnDung = so1 * so2;
         else {
@@ -124,6 +130,7 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
     void hienBangTongKet() {
+        luuDiemLenFirebase(diem);
         // Tạo một hộp thoại thông báo
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(QuizActivity.this);
         builder.setTitle("HOÀN THÀNH THỬ THÁCH");
@@ -153,5 +160,30 @@ public class QuizActivity extends AppCompatActivity {
         // Hiển thị bảng lên màn hình
         android.app.AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void luuDiemLenFirebase(int diemSo) {
+        // 1. Lấy thông tin email của người dùng đang đăng nhập hiện tại
+        String email = "Ẩn danh";
+        if (mAuth.getCurrentUser() != null) {
+            email = mAuth.getCurrentUser().getEmail();
+        }
+
+        // 2. Gom tất cả dữ liệu thành một gói
+        java.util.Map<String, Object> lichSuChoi = new java.util.HashMap<>();
+        lichSuChoi.put("email", email);
+        lichSuChoi.put("diem", diemSo);
+        lichSuChoi.put("phepToan", loaiPhepToan); // Biến chứa phép toán (+ - x /) bạn đang làm
+        lichSuChoi.put("thoiGian", com.google.firebase.Timestamp.now());
+
+        // 3. Đẩy lên collection tên là "BangDiem" trên Firestore
+        db.collection("BangDiem")
+                .add(lichSuChoi)
+                .addOnSuccessListener(documentReference -> {
+                    android.util.Log.d("Firebase_Test", "Đã lưu điểm lên Firestore thành công!");
+                })
+                .addOnFailureListener(e -> {
+                    android.util.Log.e("Firebase_Test", "Lỗi lưu điểm: " + e.getMessage());
+                });
     }
 }
