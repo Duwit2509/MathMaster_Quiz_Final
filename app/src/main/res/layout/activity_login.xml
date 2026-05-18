@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
@@ -11,48 +10,49 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ĐĂNG KÝ"
+        android:text="ĐĂNG NHẬP"
         android:textColor="#FFFFFF"
         android:textSize="35sp"
         android:textStyle="bold"
         android:layout_marginBottom="40dp"/>
 
     <EditText
-        android:id="@+id/edtEmail"
+        android:id="@+id/edtEmailLogin"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:background="@drawable/button_rounded"
-        android:hint="Nhập Email của bạn"
+        android:hint="Email của bạn"
         android:inputType="textEmailAddress"
         android:paddingLeft="20dp"
         android:layout_marginBottom="15dp"
         android:textColor="#000000"/>
 
     <EditText
-        android:id="@+id/edtPassword"
+        android:id="@+id/edtPasswordLogin"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:background="@drawable/button_rounded"
-        android:hint="Nhập mật khẩu (từ 6 ký tự)"
+        android:hint="Mật khẩu"
         android:inputType="textPassword"
         android:paddingLeft="20dp"
         android:layout_marginBottom="25dp"
         android:textColor="#000000"/>
 
     <Button
-        android:id="@+id/btnRegister"
+        android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:text="Tạo tài khoản"
-        android:backgroundTint="#FF9800"
+        android:text="Vào học ngay"
+        android:backgroundTint="#4CAF50"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"/>
+
     <TextView
-        android:id="@+id/txtGoToLogin"
+        android:id="@+id/txtGoToRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Đã có tài khoản? Đăng nhập ngay"
+        android:text="Chưa có tài khoản? Đăng ký tại đây"
         android:textColor="#FFFFFF"
         android:layout_marginTop="20dp"
         android:textSize="16sp"/>
