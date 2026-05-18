@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Random;
 
 public class QuizActivity extends AppCompatActivity {
-    TextView txtCauHoi, txtDiem;
+    TextView txtCauHoi, txtDiem, txtSoCau;
     Button btnA, btnB, btnC, btnD;
     int dapAnDung;
     int diem = 0;
@@ -23,6 +23,7 @@ public class QuizActivity extends AppCompatActivity {
 
         txtCauHoi = findViewById(R.id.txtCauHoi);
         txtDiem = findViewById(R.id.txtDiem);
+        txtSoCau = findViewById(R.id.txtSoCau);
         btnA = findViewById(R.id.btnA); btnB = findViewById(R.id.btnB);
         btnC = findViewById(R.id.btnC); btnD = findViewById(R.id.btnD);
 
@@ -57,6 +58,7 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     void taoCauHoiMoi() {
+        txtSoCau.setText("Câu: " + (soCauDaLam + 1) + "/10");
         Random r = new Random();
         int so1 = r.nextInt(20) + 1; // Số từ 1-20
         int so2 = r.nextInt(20) + 1;
