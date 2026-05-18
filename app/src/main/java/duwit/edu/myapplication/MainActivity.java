@@ -6,8 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
-    Button btnCong, btnTru, btnNhan, btnChia;
+    Button btnCong, btnTru, btnNhan, btnChia, btnSignOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         btnTru = findViewById(R.id.btnTru);
         btnNhan = findViewById(R.id.btnNhan);
         btnChia = findViewById(R.id.btnChia);
+        btnSignOut = findViewById(R.id.btnSignOut);
 
         // Viết sự kiện Click chung cho cả 4 nút
         View.OnClickListener clickListener = new View.OnClickListener() {
@@ -41,5 +44,21 @@ public class MainActivity extends AppCompatActivity {
         btnTru.setOnClickListener(clickListener);
         btnNhan.setOnClickListener(clickListener);
         btnChia.setOnClickListener(clickListener);
+
+        //Viết sự kiện Click cho nút đăng xuất
+        btnSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Lệnh đăng xuất tài khoản khỏi hệ thống Firebase hoàn toàn
+                FirebaseAuth.getInstance().signOut();
+
+                // Chuyển người dùng quay ngược lại màn hình Login
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
     }
 }

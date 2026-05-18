@@ -69,5 +69,16 @@
             android:text="Phép Chia (÷)"
             android:backgroundTint="#009688"
             android:textColor="#FFFFFF"/>
+        <Button
+            android:id="@+id/btnSignOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#E53935"
+            android:text="Đăng xuất tài khoản"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>
