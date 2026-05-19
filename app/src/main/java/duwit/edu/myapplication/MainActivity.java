@@ -3,13 +3,17 @@ package duwit.edu.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     Button btnCong, btnTru, btnNhan, btnChia, btnSignOut;
+    Spinner spnDoKho;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +26,13 @@ public class MainActivity extends AppCompatActivity {
         btnNhan = findViewById(R.id.btnNhan);
         btnChia = findViewById(R.id.btnChia);
         btnSignOut = findViewById(R.id.btnSignOut);
+        spnDoKho = findViewById(R.id.spnDoKho);
+
+        // Tạo danh sách độ khó cho Spinner
+        String[] danhSachDoKho = {"Dễ", "Trung bình", "Khó"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, danhSachDoKho);
+        adapter.setDropDownViewResource(R.layout.spinner_item);
+        spnDoKho.setAdapter(adapter);
 
         // Viết sự kiện Click chung cho cả 4 nút
         View.OnClickListener clickListener = new View.OnClickListener() {
@@ -33,9 +44,12 @@ public class MainActivity extends AppCompatActivity {
                 else if (v.getId() == R.id.btnNhan) phepToan = "x";
                 else if (v.getId() == R.id.btnChia) phepToan = "/";
 
+                String doKhoDaChon = spnDoKho.getSelectedItem().toString();
+
                 // Chuyển màn hình và gửi kèm loại phép toán đã chọn
                 Intent intent = new Intent(MainActivity.this, QuizActivity.class);
                 intent.putExtra("PHEP_TOAN", phepToan);
+                intent.putExtra("DO_KHO", doKhoDaChon);
                 startActivity(intent);
             }
         };

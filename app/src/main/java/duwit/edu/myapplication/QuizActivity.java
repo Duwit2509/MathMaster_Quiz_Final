@@ -17,6 +17,7 @@ public class QuizActivity extends AppCompatActivity {
     int diem = 0;
     int soCauDaLam = 0;
     String loaiPhepToan;
+    String doKho;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class QuizActivity extends AppCompatActivity {
         btnC = findViewById(R.id.btnC); btnD = findViewById(R.id.btnD);
 
         loaiPhepToan = getIntent().getStringExtra("PHEP_TOAN");
+        doKho = getIntent().getStringExtra("DO_KHO");
 
         db = com.google.firebase.firestore.FirebaseFirestore.getInstance();
         mAuth = com.google.firebase.auth.FirebaseAuth.getInstance();
@@ -66,8 +68,19 @@ public class QuizActivity extends AppCompatActivity {
     void taoCauHoiMoi() {
         txtSoCau.setText("Câu: " + (soCauDaLam + 1) + "/10");
         Random r = new Random();
-        int so1 = r.nextInt(20) + 1; // Số từ 1-20
-        int so2 = r.nextInt(20) + 1;
+        int maxNumber = 20;
+
+        //Tinh chỉnh giới hạn sinh sô
+        if (doKho != null) {
+            if (doKho.equals("Dễ")) {
+                maxNumber = 10;
+            } else if (doKho.equals("Khó")) {
+                maxNumber = 100;
+            }
+        }
+
+        int so1 = r.nextInt(maxNumber) + 1;
+        int so2 = r.nextInt(maxNumber) + 1;
 
         if (loaiPhepToan.equals("+")) dapAnDung = so1 + so2;
         else if (loaiPhepToan.equals("-")) {
@@ -134,7 +147,7 @@ public class QuizActivity extends AppCompatActivity {
         // Tạo một hộp thoại thông báo
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(QuizActivity.this);
         builder.setTitle("HOÀN THÀNH THỬ THÁCH");
-        builder.setMessage("Chúc mừng bé đã hoàn thành 10 câu hỏi!\n\nTổng số điểm đạt được: " + diem + " điểm");
+        builder.setMessage("Chúc mừng bé đã hoàn thành 10 câu hỏi!\nĐộ khó: " + doKho + "\n\nTổng số điểm đạt được: " + diem + " điểm");
         builder.setCancelable(false); // Ép người dùng phải bấm nút, không cho bấm ra ngoài màn hình để tắt
 
         // Nút Chơi lại
@@ -173,14 +186,15 @@ public class QuizActivity extends AppCompatActivity {
         java.util.Map<String, Object> lichSuChoi = new java.util.HashMap<>();
         lichSuChoi.put("email", email);
         lichSuChoi.put("diem", diemSo);
-        lichSuChoi.put("phepToan", loaiPhepToan); // Biến chứa phép toán (+ - x /) bạn đang làm
+        lichSuChoi.put("phepToan", loaiPhepToan);// Biến chứa phép toán (+ - x /) bạn đang làm
+        lichSuChoi.put("doKho", doKho);
         lichSuChoi.put("thoiGian", com.google.firebase.Timestamp.now());
 
         // 3. Đẩy lên collection tên là "BangDiem" trên Firestore
         db.collection("BangDiem")
                 .add(lichSuChoi)
                 .addOnSuccessListener(documentReference -> {
-                    android.util.Log.d("Firebase_Test", "Đã lưu điểm lên Firestore thành công!");
+                    android.util.Log.d("Firebase_Test", "Đã lưu điểm kèm độ khó thành công!");
                 })
                 .addOnFailureListener(e -> {
                     android.util.Log.e("Firebase_Test", "Lỗi lưu điểm: " + e.getMessage());
