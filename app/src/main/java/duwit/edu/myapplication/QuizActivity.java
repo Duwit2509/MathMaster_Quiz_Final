@@ -18,6 +18,8 @@ public class QuizActivity extends AppCompatActivity {
     int soCauDaLam = 0;
     String loaiPhepToan;
     String doKho;
+    private android.os.CountDownTimer countDownTimer;
+    private long thoiGianConLai = 10000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,7 @@ public class QuizActivity extends AppCompatActivity {
                 mauGradient = new int[]{android.graphics.Color.parseColor("#AB47BC"), android.graphics.Color.parseColor("#7B1FA2")};
             } else if (loaiPhepToan.equals("/") || loaiPhepToan.equals("÷")) {
                 tenHienThi = "Phép Chia";
-                mauGradient = new int[]{android.graphics.Color.parseColor("#26A69A"), android.graphics.Color.parseColor("#00796B")}; 
+                mauGradient = new int[]{android.graphics.Color.parseColor("#26A69A"), android.graphics.Color.parseColor("#00796B")};
             }
         }
 
@@ -75,6 +77,10 @@ public class QuizActivity extends AppCompatActivity {
         View.OnClickListener answerClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (countDownTimer != null) {
+                    countDownTimer.cancel();
+                }
+
                 Button b = (Button) v;
                 if (Integer.parseInt(b.getText().toString()) == dapAnDung) {
                     diem += 10;
@@ -99,6 +105,7 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     void taoCauHoiMoi() {
+        batDauDemNguoc();
         txtSoCau.setText("Câu: " + (soCauDaLam + 1) + "/10");
         Random r = new Random();
         int maxNumber = 20;
@@ -176,6 +183,9 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
     void hienBangTongKet() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
         luuDiemLenFirebase(diem);
         // Tạo một hộp thoại thông báo
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(QuizActivity.this);
@@ -232,5 +242,49 @@ public class QuizActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> {
                     android.util.Log.e("Firebase_Test", "Lỗi lưu điểm: " + e.getMessage());
                 });
+    }
+
+    private void batDauDemNguoc() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+
+        TextView txtTimer = findViewById(R.id.txtTimer);
+
+        // Khởi tạo bộ đếm
+        countDownTimer = new android.os.CountDownTimer(10000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                thoiGianConLai = millisUntilFinished;
+                // Hiển thị số giây còn lại lên màn hình
+                if (txtTimer != null) {
+                    txtTimer.setText("Thời gian: " + (millisUntilFinished / 1000) + "s");
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                if (txtTimer != null) {
+                    txtTimer.setText("Hết giờ!");
+                }
+
+                android.widget.Toast.makeText(QuizActivity.this, "Hết giờ! Bạn bị tính là sai.", android.widget.Toast.LENGTH_SHORT).show();
+
+                soCauDaLam++;
+                if (soCauDaLam >= 10) {
+                    hienBangTongKet();
+                } else {
+                    taoCauHoiMoi();
+                }
+            }
+        }.start();
+    }
+    //Bảo vệ ứng dụng, lỡ người dùng bấm nút Back quay về giữa chừng thì tắt luôn đồng hồ đếm ngầm
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
     }
 }
