@@ -33,6 +33,39 @@ public class QuizActivity extends AppCompatActivity {
         loaiPhepToan = getIntent().getStringExtra("PHEP_TOAN");
         doKho = getIntent().getStringExtra("DO_KHO");
 
+        android.widget.LinearLayout layoutQuizMain = findViewById(R.id.layoutQuizMain);
+        TextView txtTitlePhepToan = findViewById(R.id.txtTitlePhepToan);
+
+        String tenHienThi = "Phép Cộng";
+        int[] mauGradient = new int[]{
+                android.graphics.Color.parseColor("#FF8A65"),
+                android.graphics.Color.parseColor("#E64A19")
+        };
+
+        if (loaiPhepToan != null) {
+            if (loaiPhepToan.equals("-")) {
+                tenHienThi = "Phép Trừ";
+                mauGradient = new int[]{android.graphics.Color.parseColor("#2196F3"), android.graphics.Color.parseColor("#0277BD")};
+            } else if (loaiPhepToan.equals("x")) {
+                tenHienThi = "Phép Nhân";
+                mauGradient = new int[]{android.graphics.Color.parseColor("#AB47BC"), android.graphics.Color.parseColor("#7B1FA2")};
+            } else if (loaiPhepToan.equals("/") || loaiPhepToan.equals("÷")) {
+                tenHienThi = "Phép Chia";
+                mauGradient = new int[]{android.graphics.Color.parseColor("#26A69A"), android.graphics.Color.parseColor("#00796B")}; 
+            }
+        }
+
+        // Tự vẽ nền Gradient bằng Java để tránh xung đột XML
+        if (layoutQuizMain != null) {
+            android.graphics.drawable.GradientDrawable gd = new android.graphics.drawable.GradientDrawable(
+                    android.graphics.drawable.GradientDrawable.Orientation.TL_BR, mauGradient);
+            layoutQuizMain.setBackground(gd);
+        }
+
+        if (txtTitlePhepToan != null) {
+            txtTitlePhepToan.setText("Quiz " + tenHienThi);
+        }
+
         db = com.google.firebase.firestore.FirebaseFirestore.getInstance();
         mAuth = com.google.firebase.auth.FirebaseAuth.getInstance();
 
@@ -90,7 +123,7 @@ public class QuizActivity extends AppCompatActivity {
         else {
             dapAnDung = so1;
             so1 = dapAnDung * so2;
-            loaiPhepToan = "/";
+            loaiPhepToan = "÷";
         }
 
         txtCauHoi.setText(so1 + " " + loaiPhepToan + " " + so2 + " = ?");
@@ -148,7 +181,7 @@ public class QuizActivity extends AppCompatActivity {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(QuizActivity.this);
         builder.setTitle("HOÀN THÀNH THỬ THÁCH");
         builder.setMessage("Chúc mừng bé đã hoàn thành 10 câu hỏi!\nĐộ khó: " + doKho + "\n\nTổng số điểm đạt được: " + diem + " điểm");
-        builder.setCancelable(false); // Ép người dùng phải bấm nút, không cho bấm ra ngoài màn hình để tắt
+        builder.setCancelable(false);
 
         // Nút Chơi lại
         builder.setPositiveButton("Chơi lại", new android.content.DialogInterface.OnClickListener() {
@@ -186,7 +219,7 @@ public class QuizActivity extends AppCompatActivity {
         java.util.Map<String, Object> lichSuChoi = new java.util.HashMap<>();
         lichSuChoi.put("email", email);
         lichSuChoi.put("diem", diemSo);
-        lichSuChoi.put("phepToan", loaiPhepToan);// Biến chứa phép toán (+ - x /) bạn đang làm
+        lichSuChoi.put("phepToan", loaiPhepToan);
         lichSuChoi.put("doKho", doKho);
         lichSuChoi.put("thoiGian", com.google.firebase.Timestamp.now());
 

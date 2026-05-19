@@ -48,13 +48,30 @@
         android:textSize="18sp"
         android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/txtGoToRegister"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chưa có tài khoản? Đăng ký tại đây"
-        android:textColor="#FFFFFF"
-        android:layout_marginTop="20dp"
-        android:textSize="16sp"/>
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chưa có tài khoản? "
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txtGoToRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ĐĂNG KÝ NGAY"
+            android:textColor="#42CC42"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:background="?android:attr/selectableItemBackground"
+            android:focusable="true"
+            android:clickable="true"/>
+    </LinearLayout>
 
 </LinearLayout>

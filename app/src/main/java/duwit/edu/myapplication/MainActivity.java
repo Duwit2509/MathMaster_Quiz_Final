@@ -36,14 +36,14 @@ public class MainActivity extends AppCompatActivity {
         spnDoKho.setAdapter(adapter);
 
         // Viết sự kiện Click chung cho cả 4 nút
-        View.OnClickListener clickListener = new View.OnClickListener() {
+        View.OnClickListener gameClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phepToan = "";
+                String phepToan = "+";
                 if (v.getId() == R.id.btnCong) phepToan = "+";
                 else if (v.getId() == R.id.btnTru) phepToan = "-";
                 else if (v.getId() == R.id.btnNhan) phepToan = "x";
-                else if (v.getId() == R.id.btnChia) phepToan = "/";
+                else if (v.getId() == R.id.btnChia) phepToan = "÷";
 
                 String doKhoDaChon = spnDoKho.getSelectedItem().toString();
 
@@ -55,10 +55,10 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        btnCong.setOnClickListener(clickListener);
-        btnTru.setOnClickListener(clickListener);
-        btnNhan.setOnClickListener(clickListener);
-        btnChia.setOnClickListener(clickListener);
+        btnCong.setOnClickListener(gameClickListener);
+        btnTru.setOnClickListener(gameClickListener);
+        btnNhan.setOnClickListener(gameClickListener);
+        btnChia.setOnClickListener(gameClickListener);
 
         btnGoToHistory.setOnClickListener(new View.OnClickListener() {
             @Override
