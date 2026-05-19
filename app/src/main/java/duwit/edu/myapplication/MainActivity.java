@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnCong, btnTru, btnNhan, btnChia, btnSignOut;
+    Button btnCong, btnTru, btnNhan, btnChia, btnSignOut, btnGoToHistory;
     Spinner spnDoKho;
 
     @Override
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         btnChia = findViewById(R.id.btnChia);
         btnSignOut = findViewById(R.id.btnSignOut);
         spnDoKho = findViewById(R.id.spnDoKho);
+        btnGoToHistory = findViewById(R.id.btnGoToHistory);
 
         // Tạo danh sách độ khó cho Spinner
         String[] danhSachDoKho = {"Dễ", "Trung bình", "Khó"};
@@ -58,6 +59,13 @@ public class MainActivity extends AppCompatActivity {
         btnTru.setOnClickListener(clickListener);
         btnNhan.setOnClickListener(clickListener);
         btnChia.setOnClickListener(clickListener);
+
+        btnGoToHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, HistoryActivity.class));
+            }
+        });
 
         //Viết sự kiện Click cho nút đăng xuất
         btnSignOut.setOnClickListener(new View.OnClickListener() {
