@@ -36,32 +36,33 @@ public class QuizActivity extends AppCompatActivity {
         doKho = getIntent().getStringExtra("DO_KHO");
 
         android.widget.LinearLayout layoutQuizMain = findViewById(R.id.layoutQuizMain);
+        View viewBackgroundGoc = findViewById(R.id.viewBackgroundGoc);
         TextView txtTitlePhepToan = findViewById(R.id.txtTitlePhepToan);
 
         String tenHienThi = "Phép Cộng";
         int[] mauGradient = new int[]{
-                android.graphics.Color.parseColor("#FF8A65"),
-                android.graphics.Color.parseColor("#E64A19")
+                android.graphics.Color.parseColor("#5DE6D6"),
+                android.graphics.Color.parseColor("#1B97CC")
         };
 
         if (loaiPhepToan != null) {
             if (loaiPhepToan.equals("-")) {
                 tenHienThi = "Phép Trừ";
-                mauGradient = new int[]{android.graphics.Color.parseColor("#2196F3"), android.graphics.Color.parseColor("#0277BD")};
+                mauGradient = new int[]{android.graphics.Color.parseColor("#CFDE65"), android.graphics.Color.parseColor("#C7C30B")};
             } else if (loaiPhepToan.equals("x")) {
                 tenHienThi = "Phép Nhân";
-                mauGradient = new int[]{android.graphics.Color.parseColor("#AB47BC"), android.graphics.Color.parseColor("#7B1FA2")};
+                mauGradient = new int[]{android.graphics.Color.parseColor("#AD65D0"), android.graphics.Color.parseColor("#9E1AD7")};
             } else if (loaiPhepToan.equals("/") || loaiPhepToan.equals("÷")) {
                 tenHienThi = "Phép Chia";
-                mauGradient = new int[]{android.graphics.Color.parseColor("#26A69A"), android.graphics.Color.parseColor("#00796B")};
+                mauGradient = new int[]{android.graphics.Color.parseColor("#2FA094"), android.graphics.Color.parseColor("#04A491")};
             }
         }
 
         // Tự vẽ nền Gradient bằng Java để tránh xung đột XML
-        if (layoutQuizMain != null) {
+        if (viewBackgroundGoc != null) {
             android.graphics.drawable.GradientDrawable gd = new android.graphics.drawable.GradientDrawable(
                     android.graphics.drawable.GradientDrawable.Orientation.TL_BR, mauGradient);
-            layoutQuizMain.setBackground(gd);
+            viewBackgroundGoc.setBackground(gd);
         }
 
         if (txtTitlePhepToan != null) {

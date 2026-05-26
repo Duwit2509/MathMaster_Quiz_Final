@@ -1,152 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/background_gradient"
-    android:gravity="center_horizontal"
-    android:padding="24dp">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MATH QUIZ"
-        android:textColor="#FFEB3B"
-        android:textSize="42sp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:shadowColor="#55000000"
-        android:shadowDx="3"
-        android:shadowDy="3"
-        android:shadowRadius="3"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:background="@drawable/button_rounded"
-        android:backgroundTint="#26FFFFFF"
-        android:padding="12dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ĐỘ KHÓ:"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="15dp"/>
-
-        <Spinner
-            android:id="@+id/spnDoKho"
-            android:layout_width="150dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/button_rounded"
-            android:popupBackground="@drawable/button_rounded" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/button_rounded"
-        android:backgroundTint="#33FFFFFF"
-        android:padding="20dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chọn chủ đề học tập"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="15dp"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnCong"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_marginBottom="12dp"
-            android:text="Phép Cộng (+)"
-            android:background="@drawable/btn_cong_gradient"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnTru"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_marginBottom="12dp"
-            android:text="Phép Trừ (-)"
-            android:background="@drawable/btn_tru_gradient"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnNhan"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_marginBottom="12dp"
-            android:text="Phép Nhân (×)"
-            android:background="@drawable/btn_nhan_gradient"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnChia"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:text="Phép Chia (÷)"
-            android:background="@drawable/btn_chia_gradient"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-    </LinearLayout>
+    android:layout_height="match_parent">
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="match_parent"
+        android:background="@drawable/background_gradient" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/math4"
+        android:scaleType="fitXY"
+        android:tileModeX="repeat"
+        android:tileModeY="repeat"
+        android:alpha="0.5" />
 
     <LinearLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="10dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="24dp">
 
-        <Button
-            android:id="@+id/btnGoToHistory"
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:backgroundTint="#4CAF50"
-            android:text="Lịch sử học"
-            android:textColor="#FFFFFF"
+            android:layout_height="wrap_content"
+            android:text="MATH QUIZ"
+            android:textColor="#FFEB3B"
+            android:textSize="42sp"
             android:textStyle="bold"
-            android:layout_marginRight="12dp" />
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:shadowColor="#55000000"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="3"/>
 
-        <Button
-            android:id="@+id/btnSignOut"
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:backgroundTint="#E53935"
-            android:text="Đăng xuất"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/button_rounded"
+            android:backgroundTint="#26FFFFFF"
+            android:padding="12dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ĐỘ KHÓ:"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="15dp"/>
+
+            <Spinner
+                android:id="@+id/spnDoKho"
+                android:layout_width="150dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/button_rounded"
+                android:popupBackground="@drawable/button_rounded" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/button_rounded"
+            android:backgroundTint="#33FFFFFF"
+            android:padding="20dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chọn chủ đề học tập"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="15dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnCong"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+
+                android:layout_marginBottom="12dp"
+                android:text="Phép Cộng (+)"
+                android:background="@drawable/btn_cong_gradient"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnTru"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginBottom="12dp"
+                android:text="Phép Trừ (-)"
+                android:background="@drawable/btn_tru_gradient"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnNhan"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginBottom="12dp"
+                android:text="Phép Nhân (×)"
+                android:background="@drawable/btn_nhan_gradient"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnChia"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:text="Phép Chia (÷)"
+                android:background="@drawable/btn_chia_gradient"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="10dp">
+
+            <Button
+                android:id="@+id/btnGoToHistory"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:backgroundTint="#4CAF50"
+                android:text="Lịch sử học"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:layout_marginRight="12dp" />
+
+            <Button
+                android:id="@+id/btnSignOut"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:backgroundTint="#E53935"
+                android:text="Đăng xuất"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+        </LinearLayout>
+
     </LinearLayout>
-
-</LinearLayout>
+</FrameLayout>
