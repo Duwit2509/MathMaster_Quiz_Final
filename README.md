@@ -36,6 +36,6 @@ Màu sắc nền thay đổi thông minh theo từng phép toán khác nhau kế
 
 ## Video Demo Vận Hành Ứng Dụng
 Dưới đây là video quay lại toàn bộ quá trình vận hành, thuật toán sinh số ngẫu nhiên và lưu điểm lên Firebase Firestore của ứng dụng:
-[vdbaocao.mp4](../../vdbaocao.mp4)
+[Bấm vào đây để xem video demo](video.mp4)
 
 
